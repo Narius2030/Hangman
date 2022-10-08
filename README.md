@@ -1,3 +1,5 @@
+***This is some information about Hangman project***
+
 words.py is used to provide a list of words in game 
 
 picture.py is used to draw painting and logo of the game 
