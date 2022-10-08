@@ -1,3 +1,4 @@
+import os
 import FuncForAns
 import picture
 import words
@@ -8,7 +9,6 @@ answer_list = []
 
 #Random the word from list and assign to variable called chosen_word
 chosen_word = random.choice(words.word_list)
-
 
 #Print the logo
 print(picture.logo)
@@ -25,19 +25,27 @@ display = ""
 while (not FuncForAns.IsFull(answer_list)) and (lives > 0):
     #Ask the user to guess a letter, and assign their answer to variable caller guess
     guess = input("Guess a letter(or enter 'exit' to exit): ").lower()
+
+    #clear screen
+    os.system('cls')
+
+    #Manipulating the game's data
     if guess == "exit":
         break
     else:
-        #replace the letters into the appropriate blanks of answer list
-        FuncForAns.ReplaceLetter(chosen_word, answer_list, guess)
-        display = ' '.join(answer_list)
-        print("\t\t" + display)
-
-        if FuncForAns.CheckWord(guess, answer_list):
-            print(picture.stages[lives])
+        if guess in display:
+            print("You have just guessed already!\n")
         else:
-            lives -= 1
-            print(picture.stages[lives])
+            #replace the letters into the appropriate blanks of answer list
+            FuncForAns.ReplaceLetter(chosen_word, answer_list, guess)
+            display = ' '.join(answer_list)
+            print("\t\t" + display)
+
+            if FuncForAns.CheckWord(guess, answer_list):
+                print(picture.stages[lives])
+            else:
+                lives -= 1
+                print(picture.stages[lives])
 
 #Print the conclusion at the end of game
 if guess != "exit":
@@ -48,3 +56,4 @@ if guess != "exit":
 print(f"\nPsst, the chosen word is '{chosen_word}'\n")
 #Stop the program in 4 seconds
 time.sleep(4)
+
